@@ -2,7 +2,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: carts
+  name: myexpress
 spec:
   replicas: 1
   strategy:
@@ -15,7 +15,7 @@ spec:
   template:
     metadata: 
       labels:
-        app: carts
+        app: myexpress
         app.kubernetes.io/name: myexpress
     spec:
       containers:
