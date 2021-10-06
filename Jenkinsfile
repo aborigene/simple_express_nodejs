@@ -39,7 +39,7 @@ pipeline {
         }
         stage('Quality Gate') {
             steps {
-               sh 'curl -X POST "https://vxd38726.cloudautomation.live.dynatrace.com/api/controlPlane/v1/project/dynatrace/stage/quality-gate/service/simple_express/evaluation" -H  "accept: application/json" -H  "x-token: f5RD1gH8uCYyVRl1VRe1vlHGtFBygj3C4desyn3uyti4O" -H  "Content-Type: application/json" -d \"{  \"labels\": {    \"executedBy\": \"api\",    \"buildId\": \"3\"  },  \"timeframe\": \"5m\"}\"'  
+               sh 'curl -X POST "https://vxd38726.cloudautomation.live.dynatrace.com/api/controlPlane/v1/project/dynatrace/stage/quality-gate/service/simple_express/evaluation" -H  "accept: application/json" -H  "x-token: f5RD1gH8uCYyVRl1VRe1vlHGtFBygj3C4desyn3uyti4O" -H  "Content-Type: application/json" -d \\"{  \\"labels\\": {    \\"executedBy\\": \\"api\\",    \\"buildId\\": \\"3\\"  },  \\"timeframe\\": \\"5m\\"}\\"'  
             }
         }
     }
