@@ -14,7 +14,7 @@ pipeline {
                 //sh 'echo "Cloning repo..."'
                 //sh 'git clone https://github.com/aborigene/simple_express_nodejs.git'
                 sh 'echo "Building application..."'
-                sh 'docker build . -t "igoroschsimoes/myexpress:XXX'
+                sh 'docker build . -t "igoroschsimoes/myexpress:XXX"'
                 sh 'echo "Pushing image to dockerhub"'
                 sh 'echo $DOCKER_TOKEN | docker login -u $DOCKER_USER --password-stdin'
                 sh 'docker push "$DOCKER_IMAGE"'
