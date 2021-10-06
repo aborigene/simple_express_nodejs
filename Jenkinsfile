@@ -1,5 +1,5 @@
 pipeline {
-    agent agent { label 'cloudautomation' }
+    agent { label 'cloudautomation' }
     environment{
         DOCKER_IMAGE = "igoroschsimoes/myexpress:${env.BUILD_ID}"
     }
@@ -44,6 +44,3 @@ pipeline {
         }
     }
 }
-
-
-
