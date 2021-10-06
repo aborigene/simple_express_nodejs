@@ -11,13 +11,13 @@ pipeline {
             }
             steps {
                 sh 'echo "Starting to build image..."'
-                sh 'echo "Cloning repo..."'
-                sh 'git clone https://github.com/aborigene/simple_express_nodejs.git'
+                //sh 'echo "Cloning repo..."'
+                //sh 'git clone https://github.com/aborigene/simple_express_nodejs.git'
                 sh 'echo "Building application..."'
-                sh 'cd simple_express_nodejs && docker build . -t "igoroschsimoes/myexpress:${env.BUILD_ID}"'
+                sh 'docker build . -t "igoroschsimoes/myexpress:${env.BUILD_ID}"'
                 sh 'echo "Pushing image to dockerhub"'
                 sh 'echo $DOCKER_TOKEN | docker login -u $DOCKER_USER --password-stdin'
-                sh 'docker push "igoroschsimoes/myexpress:${env.BUILD_ID}"'
+                sh 'docker push "$DOCKER_IMAGE"'
                 sh 'echo "Build complete!"'
             }
         }
@@ -44,12 +44,3 @@ pipeline {
         }
     }
 }
-
-
-
-
-
-
-
-
-
