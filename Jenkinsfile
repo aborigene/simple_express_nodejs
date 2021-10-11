@@ -25,17 +25,14 @@ pipeline {
             steps {
                 sh 'echo "Deploying to EKS..."'
                 sh 'kubectl apply -f k8s_deploy/deployment.yaml -n simple-express'
-                sh 'kubectl create configmap curl.sh --from-file=curl.sh -n simple-express'
                 sh 'echo "Done!"'
             }
         }
         stage('Test') {
             steps {
-                sh 'echo "Hello World"'
-                sh '''
-                    echo "Multiline shell steps works too..."
-                    ls -lah
-                '''
+                sh 'echo "Deploying load generator..."'
+                sh 'kubectl apply -f k8s_deploy/deployment-loadgenerator.yaml -n simple-express'
+                sh 'sleep 310'
             }
         }
         stage('Quality Gate') {
