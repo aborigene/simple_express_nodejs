@@ -24,7 +24,8 @@ pipeline {
         stage('Deploy') {
             steps {
                 sh 'echo "Deploying to EKS..."'
-                sh 'kubectl apply -f k8s_deploy/deployment.yaml'
+                sh 'kubectl apply -f k8s_deploy/deployment.yaml -n simple-express'
+                sh 'kubectl create configmap curl.sh --from-file=curl.sh -n simple-express'
                 sh 'echo "Done!"'
             }
         }

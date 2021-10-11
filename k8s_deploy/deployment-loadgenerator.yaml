@@ -1,0 +1,53 @@
+--- 
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: myexpress-loadgen
+spec:
+  replicas: 1
+  strategy:
+    rollingUpdate:
+      maxUnavailable: 0
+    type: RollingUpdate
+  selector:
+    matchLabels:
+      app: myexpress-loadgen
+  template:
+    metadata: 
+      labels:
+        app: myexpress-loadgen
+        app.kubernetes.io/name: myexpress-loadgen
+    spec:
+      containers:
+      - name: myexpress-loadgen
+        image: curlimages/curl:7.79.1
+        imagePullPolicy: IfNotPresent
+        command: ["/bin/sh"]
+        args: ["-c", "elapsed_time=0;while [ $elapsed_time -lt 300 ]; do curl  'myexpress:$MYEXPRESS_SERVICE_PORT_HTTP'; sleep 1;	elapsed_time=$(($elapsed_time+1));done"]
+        volumeMounts:
+        - name: curl
+          mountPath: "/curl.sh"
+          readOnly: true
+        env:
+        - name: POD_NAME
+          valueFrom:
+            fieldRef:
+              fieldPath: "metadata.name"
+        - name: DEPLOYMENT_NAME
+          valueFrom:
+            fieldRef:
+              fieldPath: "metadata.labels['deployment']"
+        - name: CONTAINER_IMAGE
+          value: "curlimages/curl:7.79.1"
+        resources:
+          limits:
+              cpu: 1000m
+              memory: 2048Mi
+          requests:
+              cpu: 500m
+              memory: 1024Mi
+      volumes:
+        - name: curl
+          configMap:
+            name: curl.sh
+            defaultMode: 0755
