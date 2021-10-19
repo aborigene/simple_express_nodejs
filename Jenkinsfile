@@ -40,13 +40,17 @@ pipeline {
             }
         }
         stage('Quality Gate') {
-            keptn.keptnInit project:"dynatrace", service:"myexpress", stage:"quality-gate", monitoring:"dynatrace" 
-            def keptnContext = keptn.sendStartEvaluationEvent starttime:"1800", endtime:"0"
+            
+            script{
+                keptn.keptnInit project:"dynatrace", service:"myexpress", stage:"quality-gate", monitoring:"dynatrace" 
+                def keptnContext = keptn.sendStartEvaluationEvent starttime:"1800", endtime:"0"
+                def result = keptn.waitForEvaluationDoneEvent setBuildResult:true, waitTime:120
+                echo "${result}"
+            }
             //steps {
                //sh 'curl -X POST "https://vxd38726.cloudautomation.live.dynatrace.com/api/controlPlane/v1/project/dynatrace/stage/quality-gate/service/myexpress/evaluation" -H  "accept: application/json" -H  "x-token: f5RD1gH8uCYyVRl1VRe1vlHGtFBygj3C4desyn3uyti4O" -H  "Content-Type: application/json" -d "{  \\"labels\\": {    \\"executedBy\\": \\"api\\",    \\"buildId\\": \\"3\\"  },  \\"timeframe\\": \\"5m\\"}"'
                //sh 'curl -X GET "https://vxd38726.cloudautomation.live.dynatrace.com/api/mongodb-datastore/event?keptnContext={keptnContext}&type=sh.keptn.events.evaluation-done" -H "accept: application/json; charset=utf-8" -H "x-token: f5RD1gH8uCYyVRl1VRe1vlHGtFBygj3C4desyn3uyti4O"'
-               def result = keptn.waitForEvaluationDoneEvent setBuildResult:true, waitTime:120
-               echo "${result}"
+               
             //}
         }
     }
