@@ -1,3 +1,7 @@
+@Library('keptn-library@4.0')
+import sh.keptn.Keptn
+def keptn = new sh.keptn.Keptn()
+
 pipeline {
     agent { label 'cloudautomation' }
     environment{
@@ -37,7 +41,10 @@ pipeline {
         }
         stage('Quality Gate') {
             steps {
-               sh 'curl -X POST "https://vxd38726.cloudautomation.live.dynatrace.com/api/controlPlane/v1/project/dynatrace/stage/quality-gate/service/myexpress/evaluation" -H  "accept: application/json" -H  "x-token: f5RD1gH8uCYyVRl1VRe1vlHGtFBygj3C4desyn3uyti4O" -H  "Content-Type: application/json" -d "{  \\"labels\\": {    \\"executedBy\\": \\"api\\",    \\"buildId\\": \\"3\\"  },  \\"timeframe\\": \\"5m\\"}"'
+               //sh 'curl -X POST "https://vxd38726.cloudautomation.live.dynatrace.com/api/controlPlane/v1/project/dynatrace/stage/quality-gate/service/myexpress/evaluation" -H  "accept: application/json" -H  "x-token: f5RD1gH8uCYyVRl1VRe1vlHGtFBygj3C4desyn3uyti4O" -H  "Content-Type: application/json" -d "{  \\"labels\\": {    \\"executedBy\\": \\"api\\",    \\"buildId\\": \\"3\\"  },  \\"timeframe\\": \\"5m\\"}"'
+               //sh 'curl -X GET "https://vxd38726.cloudautomation.live.dynatrace.com/api/mongodb-datastore/event?keptnContext={keptnContext}&type=sh.keptn.events.evaluation-done" -H "accept: application/json; charset=utf-8" -H "x-token: f5RD1gH8uCYyVRl1VRe1vlHGtFBygj3C4desyn3uyti4O"'
+               def result = keptn.waitForEvaluationDoneEvent setBuildResult:true, waitTime:waitTime
+               sh 'echo "${result}"'
             }
         }
     }
