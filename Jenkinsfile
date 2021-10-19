@@ -48,6 +48,8 @@ pipeline {
             script{
                 keptn.keptnInit project:"dynatrace", service:"myexpress", stage:"quality-gate", monitoring:"dynatrace" 
                 def keptnContext = keptn.sendStartEvaluationEvent starttime:"1800", endtime:"0"
+                String keptn_bridge = env.KEPTN_BRIDGE
+                echo "Open Keptns Bridge: https://vxd38726.cloudautomation.live.dynatrace.com/bridge/trace/${keptnContext}"
                 def result = keptn.waitForEvaluationDoneEvent setBuildResult:true, waitTime:120
                 echo "${result}"
             }
