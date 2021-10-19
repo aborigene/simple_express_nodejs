@@ -49,7 +49,6 @@ pipeline {
                 keptn.keptnInit project:"dynatrace", service:"myexpress", stage:"quality-gate", monitoring:"dynatrace" 
                 def keptnContext = keptn.sendStartEvaluationEvent starttime:"1800", endtime:"0"
                 def result = keptn.waitForEvaluationDoneEvent setBuildResult:true, waitTime:120
-                
                 echo "${result}"
             }
                
