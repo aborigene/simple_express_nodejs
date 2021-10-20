@@ -36,7 +36,10 @@ pipeline {
             steps {
                 sh 'echo "Deploying load generator..."'
                 sh 'kubectl apply -f k8s_deploy/deployment-loadgenerator.yaml -n simple-express'
-                sh 'sleep 310'
+                script{
+                    keptn.markEvaluationStartTime()
+                }
+                sh 'sleep 60'
             }
         }
         stage('Quality Gate') {
@@ -47,7 +50,8 @@ pipeline {
                //sh 'curl -X GET "https://vxd38726.cloudautomation.live.dynatrace.com/api/mongodb-datastore/event?keptnContext={keptnContext}&type=sh.keptn.events.evaluation-done" -H "accept: application/json; charset=utf-8" -H "x-token: f5RD1gH8uCYyVRl1VRe1vlHGtFBygj3C4desyn3uyti4O"'
             script{
                 keptn.keptnInit project:"dynatrace", service:"myexpress", stage:"quality-gate", monitoring:"dynatrace" 
-                def keptnContext = keptn.sendStartEvaluationEvent starttime:"60", endtime:"0"
+                def keptnContext = keptn.sendStartEvaluationEvent starttime:"", endtime:""
+                //def keptnContext = keptn.sendStartEvaluationEvent starttime:"600", endtime:"0" 
                 echo "Open Keptns Bridge: https://vxd38726.cloudautomation.live.dynatrace.com/bridge/trace/${keptnContext}"
                 def result = keptn.waitForEvaluationDoneEvent setBuildResult:true, waitTime:120
                 echo "${result}"
