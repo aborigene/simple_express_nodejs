@@ -55,7 +55,7 @@ pipeline {
                 echo "Open Keptns Bridge: https://vxd38726.cloudautomation.live.dynatrace.com/bridge/trace/${keptnContext}"
                 def result = keptn.waitForEvaluationDoneEvent setBuildResult:true, waitTime:120
                 echo "${result}"
-                //will it work:???
+                //will it work:??????
             }
                
             }
