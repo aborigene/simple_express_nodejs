@@ -1,4 +1,4 @@
-FROM node
+FROM i386/node
 RUN mkdir /app
 COPY myExpress.js /app
 COPY package.json /app
