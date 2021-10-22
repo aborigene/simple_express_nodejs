@@ -25,7 +25,7 @@ spec:
         ports:
         - name: http
           protocol: TCP
-          containerPort: 8082
+          containerPort: 8083
         env:
         - name: POD_NAME
           valueFrom:
