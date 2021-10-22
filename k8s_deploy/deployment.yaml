@@ -19,6 +19,8 @@ spec:
       labels:
         app: myexpress
         app.kubernetes.io/name: myexpress
+        annotations:
+          "qqcoisa pod"
     spec:
       containers:
       - name: myexpress
