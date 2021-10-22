@@ -22,7 +22,7 @@ spec:
     spec:
       containers:
       - name: myexpress
-        image: igoroschsimoes/myexpress:39
+        image: igoroschsimoes/myexpress:41
         imagePullPolicy: IfNotPresent
         ports:
         - name: http
@@ -38,18 +38,18 @@ spec:
             fieldRef:
               fieldPath: "metadata.labels['deployment']"
         - name: CONTAINER_IMAGE
-          value: "igoroschsimoes/myexpress:39"
+          value: "igoroschsimoes/myexpress:41"
         livenessProbe:
           httpGet:
             path: /
-            port: 8082
+            port: 8083
           initialDelaySeconds: 60
           periodSeconds: 10
           timeoutSeconds: 15
         readinessProbe:
           httpGet:
             path: /
-            port: 8082
+            port: 8083
           initialDelaySeconds: 60
           periodSeconds: 10
           timeoutSeconds: 15
