@@ -20,7 +20,7 @@ spec:
     spec:
       containers:
       - name: myexpress
-        image: igoroschsimoes/myexpress:v1
+        image: igoroschsimoes/myexpress:33
         imagePullPolicy: IfNotPresent
         ports:
         - name: http
