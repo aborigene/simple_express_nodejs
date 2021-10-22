@@ -25,7 +25,7 @@ const propagation = opentelemetry.propagation;*/
 
 
 const express = require("express");
-const PORT = process.env.PORT || "8082";
+const PORT = process.env.PORT || "8083";
 const app = express();
 
 app.get("/", (req, res) => {
